@@ -8,8 +8,12 @@ import java.io.File;
 import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import org.checkerframework.checker.units.qual.A;
 
@@ -17,7 +21,7 @@ public class App {
 
     public static void main(String[] args) throws Exception {
         ArrayList<String> input = new ArrayList<>();
-        File file = new File("/home/redmark/Documents/Code/Advent/Day1/input.txt");
+        File file = new File("/home/redmark/Documents/Code/Advent/Day1/inputNew.txt");
         BufferedReader bufferedReader = new BufferedReader(new FileReader(file));
         String inputStr;
         while((inputStr=bufferedReader.readLine())!=null)
@@ -27,7 +31,8 @@ public class App {
 
 
 
-       Integer  sol = new Solution().solution(input);
+       //Integer  sol = new Solution().solution(input);
+       Integer sol = new Solution().solution2(input); 
     }
 }
 
@@ -60,5 +65,92 @@ System.out.println(answer);
 return 0; 
 
 
+}
+
+public Integer solution2(ArrayList<String>inputparam)
+{
+
+  HashMap<String, Integer>mapVals = new HashMap<>();
+  mapVals.put("one", 1);
+  mapVals.put("two", 2);
+  mapVals.put("three", 3);
+  mapVals.put("four", 4);
+  mapVals.put("five", 5);
+  mapVals.put("six", 6);
+  mapVals.put("seven", 7);
+  mapVals.put("eight", 8);
+  mapVals.put("nine", 9);
+  mapVals.put("1", 1);
+  mapVals.put("2", 2);
+  mapVals.put("3", 3);
+  mapVals.put("4", 4);
+  mapVals.put("5", 5);
+  mapVals.put("6", 6);
+  mapVals.put("7", 7);
+  mapVals.put("8", 8);
+  mapVals.put("9", 9);
+
+
+//for(String input : inputparam)
+//{
+//  StringBuilder str = new StringBuilder();
+//  ArrayList<Integer> answerArray = new ArrayList<>();
+//  Stream<Character> charStream = input.chars().mapToObj(a->(char)a);
+//  charStream.forEach(a->
+//      {
+
+//        if(a>47 && a<58)
+//        {
+//          int num = (int)a-48; 
+//          answerArray.add(num);
+//        }
+//        else
+//        {
+//          str.append(a);
+//          if(mapVals.containsKey(str.toString()))
+//          {
+//            System.out.println(str.toString());
+//            answerArray.add(mapVals.get(str.toString()));
+//          }
+//          
+//        }
+
+//      }
+
+//      );
+
+//System.out.println(answerArray);
+// }
+Integer answer = 0; 
+Pattern pattern = Pattern.compile("one|two|three|four|five|six|seven|eight|nine|1|2|3|4|5|6|7|8|9");
+for (String input : inputparam)
+{
+
+  ArrayList<Integer>answerArray = new ArrayList<>(); 
+
+  Matcher matcher = pattern.matcher(input);
+  while(matcher.find())
+  { 
+  //  System.out.println("Found"+ matcher.group());
+  //  System.out.println("from "+ matcher.start() + " to " + matcher.end());
+    answerArray.add(mapVals.get(input.substring(matcher.start(), matcher.end())));
+    System.out.println(answerArray);
+  }
+
+  System.out.println(answerArray);
+
+  if(answerArray.size()>0)
+  {
+    System.out.println(answerArray.get(0)*10 + answerArray.get(answerArray.size()-1));
+    answer = answer+ answerArray.get(0)*10 + answerArray.get(answerArray.size()-1);
+  }
+
+  System.out.println(answer);
+
+}
+
+
+
+  return 0; 
 }
 }
